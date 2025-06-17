@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  jimeng-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: jimeng-free-api:latest
+    container_name: jimeng-free-api
+    restart: unless-stopped
+    ports:
+      - "5566:5566"
+    environment:
+      - NODE_ENV=production
+      - SERVER_ENV=production
+      - SERVER_PORT=5566
+      - TZ=Asia/Shanghai
+    volumes:
+      # 挂载配置文件
+      - ./configs:/app/configs:ro
+      # 挂载日志目录
+      - ./logs:/app/logs
+      # 可选：挂载自定义配置
+      - ./docker/production.env:/app/.env:ro
+    networks:
+      - jimeng-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5566/ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "3"
+
+  # 可选：添加Nginx反向代理
+  nginx:
+    image: nginx:alpine
+    container_name: jimeng-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - jimeng-api
+    networks:
+      - jimeng-network
+    profiles:
+      - nginx
+
+networks:
+  jimeng-network:
+    driver: bridge
+
+volumes:
+  jimeng-logs:
+    driver: local 

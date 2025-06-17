@@ -1,0 +1,10 @@
+# 服务名称
+name: jimeng-free-api
+# 服务绑定主机地址
+host: '0.0.0.0'
+# 服务绑定端口 - 开发环境使用3000端口避免与生产环境冲突
+port: 3000
+# 服务绑定地址（外部访问地址）- 开发环境使用localhost
+bindAddress: 'localhost'
+# 服务路由前缀
+urlPrefix: ''

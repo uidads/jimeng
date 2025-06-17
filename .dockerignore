@@ -1,0 +1,56 @@
+# 依赖目录
+node_modules/
+dream/node_modules/
+
+# 构建产物
+dist/
+dream/dist/
+
+# 日志文件
+logs/
+*.log
+
+# 临时文件
+tmp/
+*.tmp
+*.cache
+
+# 开发文件
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 环境文件
+.env
+.env.local
+.env.*.local
+
+# Git
+.git/
+.gitignore
+
+# Docker文件
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# 文档
+README*.md
+CHANGELOG.md
+docs/
+
+# 测试文件
+test/
+tests/
+__tests__/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+
+# 其他
+.DS_Store
+Thumbs.db
+*.tar.gz
+*.zip 

@@ -1,0 +1,586 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Apple系统字体设置 */
+  html {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+    font-feature-settings: 'liga' 1, 'kern' 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Apple风格的全局背景 */
+  body {
+    @apply bg-apple-gray-50 dark:bg-apple-gray-900 text-apple-gray-900 dark:text-apple-gray-50;
+    background-attachment: fixed;
+    transition: background-color 0.3s ease-apple-ease;
+  }
+  
+  /* 暗色模式下的背景渐变 */
+  body.dark {
+    background: linear-gradient(135deg, #1C1C1E 0%, #2C2C2E 100%);
+  }
+  
+  /* 选中文本的Apple风格 */
+  ::selection {
+    @apply bg-apple-blue-500/20 text-apple-blue-700;
+  }
+  
+  /* 滚动条样式 */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-apple-gray-300 dark:bg-apple-gray-600;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-apple-gray-400 dark:bg-apple-gray-500;
+  }
+}
+
+@layer components {
+  /* Apple风格聊天气泡 */
+  .apple-chat-bubble {
+    @apply max-w-xs sm:max-w-md lg:max-w-lg xl:max-w-xl 2xl:max-w-2xl;
+    @apply transition-all duration-300 ease-apple-ease;
+  }
+  
+  /* 用户消息气泡 - 蓝色渐变 */
+  .apple-chat-bubble-user {
+    @apply bg-apple-gradient text-white;
+    @apply rounded-apple-lg rounded-br-apple-sm;
+    @apply px-apple-md py-apple-sm ml-auto;
+    @apply shadow-apple-md;
+    @apply relative;
+    
+    /* 毛玻璃边框效果 */
+    &::before {
+      content: '';
+      @apply absolute inset-0 rounded-apple-lg rounded-br-apple-sm;
+      @apply border border-white/20;
+      pointer-events: none;
+    }
+  }
+  
+  /* AI消息气泡 - 毛玻璃效果 */
+  .apple-chat-bubble-ai {
+    @apply bg-white/80 dark:bg-apple-gray-800/80;
+    @apply backdrop-blur-apple border border-apple-gray-200/50 dark:border-apple-gray-700/50;
+    @apply rounded-apple-lg rounded-bl-apple-sm;
+    @apply px-apple-md py-apple-sm mr-auto;
+    @apply shadow-apple;
+    @apply relative;
+    
+    /* 内阴影效果 */
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Apple风格悬浮输入区域 */
+  .apple-input-floating {
+    @apply fixed bottom-apple-md left-apple-md right-apple-md;
+    z-index: 1000;
+    @apply mx-auto max-w-4xl;
+    @apply bg-white/90 dark:bg-apple-gray-800/90;
+    @apply backdrop-blur-apple;
+    @apply border border-apple-gray-200/50 dark:border-apple-gray-700/50;
+    @apply rounded-apple-xl;
+    @apply shadow-apple-lg;
+    @apply transition-all duration-300 ease-apple-ease;
+    
+    /* 毛玻璃效果增强 */
+    background: 
+      linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.8) 100%);
+    
+    /* 暗色模式下的毛玻璃 */
+    .dark & {
+      background: 
+        linear-gradient(135deg, rgba(28,28,30,0.9) 0%, rgba(44,44,46,0.8) 100%);
+    }
+    
+    /* 悬浮时的微妙动效 */
+    &:hover {
+      @apply shadow-apple-xl;
+      transform: translateY(-2px);
+    }
+  }
+  
+  /* Apple风格比例按钮 */
+  .apple-aspect-button {
+    @apply flex flex-col items-center justify-center;
+    @apply p-apple-sm rounded-apple border-2;
+    @apply transition-all duration-200 ease-apple-ease;
+    @apply cursor-pointer select-none;
+    @apply bg-white/50 dark:bg-apple-gray-800/50;
+    @apply backdrop-blur-apple-md;
+    
+    /* 默认状态 */
+    &:not(.active) {
+      @apply border-apple-gray-200 dark:border-apple-gray-700;
+  }
+  
+    /* 悬浮效果 */
+    &:hover:not(.active) {
+      @apply border-apple-gray-300 dark:border-apple-gray-600;
+      @apply bg-white/70 dark:bg-apple-gray-800/70;
+      @apply shadow-apple-sm;
+      transform: translateY(-1px) scale(1.02);
+    }
+    
+    /* 激活状态 */
+    &.active {
+      @apply border-apple-blue-500 bg-apple-blue-50 dark:bg-apple-blue-900/20;
+      @apply text-apple-blue-600 dark:text-apple-blue-400;
+      @apply shadow-apple;
+      transform: scale(1.05);
+    }
+    
+    /* 点击效果 */
+    &:active {
+      transform: scale(0.98);
+  }
+  }
+  
+  /* 图片网格布局 */
+  .apple-image-grid {
+    @apply grid gap-apple-sm;
+    
+    &.cols-1 { @apply grid-cols-1; }
+    &.cols-2 { @apply grid-cols-2; }
+    &.cols-4 { @apply grid-cols-2 md:grid-cols-4; }
+  }
+  
+  /* Apple风格生成的图片 */
+  .apple-generated-image {
+    @apply rounded-apple-md overflow-hidden;
+    @apply shadow-apple hover:shadow-apple-md;
+    @apply transition-all duration-200 ease-apple-ease;
+    @apply cursor-pointer;
+    @apply relative;
+    
+    /* 减少悬浮效果强度 */
+    &:hover {
+      transform: translateY(-1px) scale(1.01);
+    }
+  
+    /* 加载时的毛玻璃遮罩 */
+    &.loading::after {
+      content: '';
+      @apply absolute inset-0 bg-white/20 dark:bg-black/20;
+      @apply backdrop-blur-apple-md;
+    }
+  }
+  
+  /* Apple风格按钮基础样式 */
+  .apple-button {
+    @apply inline-flex items-center justify-center;
+    @apply px-apple-md py-apple-sm;
+    @apply text-sm font-medium;
+    @apply rounded-apple-md;
+    @apply transition-all duration-200 ease-apple-ease;
+    @apply cursor-pointer select-none;
+    @apply focus:outline-none focus:ring-2 focus:ring-apple-blue-500/50;
+    
+    /* 主要按钮 */
+    &.primary {
+      @apply bg-apple-blue-500 text-white;
+      @apply shadow-apple;
+      
+      &:hover:not(:disabled) {
+        @apply bg-apple-blue-600 shadow-apple-md;
+        transform: translateY(-1px);
+      }
+      
+      &:active:not(:disabled) {
+        transform: translateY(0) scale(0.98);
+      }
+    }
+    
+    /* 增强版渐变主要按钮 */
+    &.primary-gradient {
+      background: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
+      @apply text-white font-semibold shadow-lg;
+      @apply border border-blue-500/20;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      
+      &:hover:not(:disabled) {
+        background: linear-gradient(135deg, #0056CC 0%, #4844B8 100%);
+        @apply shadow-xl;
+        transform: translateY(-1px) scale(1.02);
+      }
+      
+      &:active:not(:disabled) {
+        transform: translateY(0) scale(0.98);
+        @apply shadow-md;
+      }
+    }
+    
+    /* 次要按钮 */
+    &.secondary {
+      @apply bg-apple-gray-100 dark:bg-apple-gray-800;
+      @apply text-apple-gray-700 dark:text-apple-gray-300;
+      @apply border border-apple-gray-200 dark:border-apple-gray-700;
+      
+      &:hover:not(:disabled) {
+        @apply bg-apple-gray-200 dark:bg-apple-gray-700;
+        @apply shadow-apple-sm;
+      }
+    }
+    
+    /* 禁用状态 */
+    &:disabled {
+      @apply opacity-50 cursor-not-allowed;
+    }
+  }
+  
+  /* Apple风格输入框 */
+  .apple-input {
+    @apply w-full px-apple-md py-apple-sm;
+    @apply bg-white/50 dark:bg-apple-gray-800/50;
+    @apply border border-apple-gray-200 dark:border-apple-gray-700;
+    @apply rounded-apple-md;
+    @apply text-apple-gray-900 dark:text-apple-gray-100;
+    @apply placeholder-apple-gray-400 dark:placeholder-apple-gray-500;
+    @apply transition-all duration-200 ease-apple-ease;
+    @apply backdrop-blur-apple-md;
+    @apply focus:outline-none focus:ring-2 focus:ring-apple-blue-500/50;
+    @apply focus:border-apple-blue-500;
+  }
+  
+  /* Apple风格卡片 */
+  .apple-card {
+    @apply bg-white/80 dark:bg-apple-gray-800/80;
+    @apply backdrop-blur-apple;
+    @apply border border-apple-gray-200/50 dark:border-apple-gray-700/50;
+    @apply rounded-apple-lg;
+    @apply shadow-apple;
+    @apply transition-all duration-300 ease-apple-ease;
+    
+    /* 悬浮效果 */
+    &:hover {
+      @apply shadow-apple-md;
+      transform: translateY(-2px);
+    }
+  }
+  
+  /* Apple风格侧边栏 */
+  .apple-sidebar {
+    @apply bg-white/95 dark:bg-apple-gray-900/95;
+    @apply backdrop-blur-apple;
+    @apply border-r border-apple-gray-200/50 dark:border-apple-gray-700/50;
+    @apply shadow-apple-lg;
+  }
+  
+  /* Apple风格导航栏 */
+  .apple-header {
+    @apply bg-white/90 dark:bg-apple-gray-900/90;
+    @apply backdrop-blur-apple;
+    @apply border-b border-apple-gray-200/50 dark:border-apple-gray-700/50;
+    @apply shadow-apple-sm;
+  }
+  
+  /* Apple风格输入框按钮 */
+  .apple-input-button {
+    @apply w-10 h-10 rounded-full;
+    @apply bg-white/60 dark:bg-apple-gray-800/60;
+    @apply backdrop-blur-apple-md;
+    @apply border border-apple-gray-200/50 dark:border-apple-gray-700/50;
+    @apply flex items-center justify-center;
+    @apply transition-all duration-200 ease-apple-ease;
+    @apply cursor-pointer select-none;
+    @apply relative;
+    
+    /* 悬浮效果 */
+    &:hover {
+      @apply bg-white/80 dark:bg-apple-gray-800/80;
+      @apply shadow-apple-sm;
+      transform: scale(1.05);
+    }
+    
+    /* 激活状态 */
+    &.active {
+      @apply bg-apple-blue-50 dark:bg-apple-blue-900/20;
+      @apply border-apple-blue-500/50;
+      @apply shadow-apple;
+      
+      /* 激活状态指示器 */
+      &::after {
+        content: '';
+        @apply absolute -top-1 -right-1;
+        @apply w-3 h-3 bg-apple-blue-500 rounded-full;
+        @apply border-2 border-white dark:border-apple-gray-900;
+      }
+    }
+    
+    /* 点击效果 */
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+  
+  /* Apple风格悬浮菜单 */
+  .apple-floating-menu {
+    @apply bg-white/95 dark:bg-apple-gray-800/95;
+    @apply backdrop-blur-apple-lg;
+    @apply border border-apple-gray-200/50 dark:border-apple-gray-700/50;
+    @apply rounded-apple-md;
+    @apply shadow-apple-lg;
+    @apply overflow-hidden;
+    
+    /* 毛玻璃效果增强 */
+    background: 
+      linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%);
+    
+    /* 暗色模式下的毛玻璃 */
+    .dark & {
+      background: 
+        linear-gradient(135deg, rgba(58,58,60,0.95) 0%, rgba(44,44,46,0.9) 100%);
+    }
+  }
+  
+  /* Apple风格菜单项 */
+  .apple-menu-item {
+    @apply w-full px-apple-md py-apple-sm;
+    @apply flex items-center;
+    @apply text-left;
+    @apply transition-all duration-200 ease-apple-ease;
+    @apply cursor-pointer select-none;
+    @apply border-b border-apple-gray-200/30 dark:border-apple-gray-700/30;
+    
+    /* 最后一项不显示分割线 */
+    &:last-child {
+      @apply border-b-0;
+    }
+    
+    /* 悬浮效果 */
+    &:hover:not(.active) {
+      @apply bg-apple-gray-50/50 dark:bg-apple-gray-700/30;
+    }
+    
+    /* 激活状态 */
+    &.active {
+      @apply bg-apple-blue-50 dark:bg-apple-blue-900/20;
+      @apply text-apple-blue-600 dark:text-apple-blue-400;
+      
+      /* 激活状态勾选标记 */
+      &::after {
+        content: '✓';
+        @apply ml-auto text-apple-blue-600 dark:text-apple-blue-400;
+        @apply font-semibold;
+      }
+    }
+    
+    /* 点击动效 */
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+@layer utilities {
+  /* 自定义滚动条工具类 */
+  .apple-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(209 213 219) transparent;
+    
+    &::-webkit-scrollbar {
+    width: 6px;
+      height: 6px;
+  }
+  
+    &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+    &::-webkit-scrollbar-thumb {
+      @apply bg-apple-gray-300 dark:bg-apple-gray-600;
+    border-radius: 3px;
+      
+      &:hover {
+        @apply bg-apple-gray-400 dark:bg-apple-gray-500;
+      }
+  }
+}
+
+  /* 毛玻璃效果工具类 */
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    
+    .dark & {
+      background: rgba(28, 28, 30, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+  /* Apple风格加载动画 */
+  .apple-loading {
+    @apply animate-apple-shimmer;
+    background: linear-gradient(
+      90deg,
+      #f0f0f0 25%,
+      #e0e0e0 50%,
+      #f0f0f0 75%
+    );
+    background-size: 200% 100%;
+
+    .dark & {
+      background: linear-gradient(
+        90deg,
+        #374151 25%,
+        #4b5563 50%,
+        #374151 75%
+      );
+    }
+  }
+  
+  /* 文本渐变效果 */
+  .apple-text-gradient {
+    @apply bg-apple-gradient bg-clip-text text-transparent;
+  }
+  
+  /* 呼吸动画 */
+  .apple-breathing {
+    @apply animate-apple-pulse;
+  }
+  
+  /* 弹性过渡 */
+  .apple-bounce-transition {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  /* 流畅过渡 */
+  .apple-smooth-transition {
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+}
+
+/* Apple风格的自定义动画 */
+@keyframes appleGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 122, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 122, 255, 0.5);
+  }
+}
+
+/* 特殊的Apple风格聚焦效果 */
+.apple-focus-ring {
+  &:focus {
+    outline: none;
+    box-shadow: 
+      0 0 0 3px rgba(0, 122, 255, 0.3),
+      0 0 0 1px rgba(0, 122, 255, 0.5);
+  }
+}
+
+/* 响应式网格系统 */
+@media (max-width: 640px) {
+  .apple-input-floating {
+    @apply left-apple-sm right-apple-sm bottom-apple-sm;
+  }
+  
+  .apple-chat-bubble {
+    @apply max-w-[280px];
+  }
+}
+
+/* 暗色模式特殊效果 */
+@media (prefers-color-scheme: dark) {
+  .apple-glow-dark {
+    box-shadow: 0 0 20px rgba(0, 122, 255, 0.2);
+  }
+}
+
+/* 性能优化：为低性能设备减少动画 */
+@media (prefers-reduced-motion: reduce) {
+  .apple-smooth-transition,
+  .apple-bounce-transition,
+  .apple-breathing,
+  .animate-apple-pulse,
+  .motion-safe\:animate-spin {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 云端部署性能优化 */
+@media (max-width: 768px), (max-height: 600px) {
+  /* 在小屏幕或低分辨率设备上禁用复杂动画 */
+  .apple-breathing,
+  .animate-apple-pulse {
+    animation: none !important;
+  }
+  
+  /* 减少毛玻璃效果的复杂度 */
+  .backdrop-blur-apple,
+  .backdrop-blur-apple-lg,
+  .backdrop-blur-apple-md {
+    backdrop-filter: blur(4px) !important;
+  }
+  
+  /* 简化阴影效果 */
+  .shadow-apple-2xl,
+  .shadow-apple-xl {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+  }
+}
+
+body.image-modal-open {
+  overflow: hidden;
+  
+  .apple-input-floating {
+    display: none;
+  }
+}
+
+/* Apple风格图片全屏预览 */
+.apple-image-modal {
+  /* 确保最高层级显示 */
+  z-index: 9999 !important;
+  
+  /* 优化背景 */
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(20px);
+  
+  /* 禁用选择 */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  
+  /* 优化图片显示 */
+  img {
+    /* 防止图片被拖拽 */
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    
+    /* 优化图片渲染 */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+} 

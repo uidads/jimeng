@@ -1,0 +1,14 @@
+# 是否开启请求日志
+requestLog: true
+# 临时目录路径
+tmpDir: ./tmp
+# 日志目录路径
+logDir: ./logs
+# 日志写入间隔（毫秒）
+logWriteInterval: 200
+# 日志文件有效期（毫秒）- 生产环境保留30天
+logFileExpires: 2592000000
+# 公共目录路径
+publicDir: ./public
+# 临时文件有效期（毫秒）- 生产环境1天
+tmpFileExpires: 86400000 
